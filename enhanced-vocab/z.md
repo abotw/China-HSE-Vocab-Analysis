@@ -1,0 +1,7 @@
+# Z
+
+| **序号** | **Word**    | **Pronunciation Aid** | **Article/Plural**       | **Part of Speech** | **English Definition**                                       | **Chinese Translation**            | **Notes** | **IELTS/Exam Remark** |
+| -------- | ----------- | --------------------- | ------------------------ | ------------------ | ------------------------------------------------------------ | ---------------------------------- | --------- | --------------------- |
+| 1        | **zero**    | ze·ro                 | a zero/zeros (or zeroes) | **n./num./v.**     | the **number 0**; nothing; the lowest point/having no quantity/to adjust (an instrument) to a zero setting. | **零**；零点；无/**零的**/**归零** |           | A1                    |
+| 2        | **zone\**** | zone                  | a zone/zones             | **n./v.**          | an **area or stretch of land having a particular characteristic, purpose, or restriction**; a region/to divide (an area) into zones. | **地区**；地带；区域/**划分区域**  |           | B2/IELTS              |
+| 3        | **zoo**     | zoo                   | a zoo/zoos               | **n.**             | an **establishment that maintains a collection of wild animals**, typically in a park or gardens, for study, conservation, or public exhibition. | **动物园**                         |           | A1                    |
