@@ -1,16 +1,16 @@
-# 《普通高中英语课程标准》词汇表首字母分布
+# 《普通高中英语课程标准》词汇表
 
-## 项目简介
+## 简介
 
-本项目旨在对中华人民共和国教育部制定的《普通高中英语课程标准（2017年版2020年修订）》附录词汇表进行**量化**分析。通过统计词汇表中所有单词的**首字母分布频率**，生成统计数据，从而深入了解高中英语教学大纲词汇的构成特点。
+本项目旨在对中华人民共和国教育部制定的《普通高中英语课程标准（2017年版2020年修订）》附录词汇表进行拓展和量化分析。通过统计词汇表中所有单词的**首字母分布频率**，生成词频数据，从而深入了解高中英语教学大纲词汇的构成特点。
 
-## 项目目标
+## 目标
 
 1.  **数据清洗与分类：** 将课程标准词汇表中的所有单词，严格按照其首字母分类，并存入单独的文本文件。
 2.  **词频统计：** 计算每个首字母下的词汇数量（即词频）。
 3.  **构建基础数据集：** 为后续的词汇难度、重要性（`*` 或 `**` 标记）等更深入的教学研究提供结构化数据基础。
 
-## 文件结构与产出
+## 关键文件
 
 本项目生成和使用的关键文件如下：
 
@@ -27,36 +27,44 @@
 2.  **C (307 词)**：位居第二。
 3.  **P (229 词)**：位居第三。
 
-整体统计数据：
+## 统计与排序 (Shell 命令)
 
-| 字母 | 数量 | 字母 | 数量 | 字母 | 数量 | 字母 | 数量 |
-| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
-| S    | 348  | T    | 168  | L    | 100  | N    | 71   |
-| C    | 307  | R    | 158  | H    | 99   | V    | 39   |
-| P    | 229  | F    | 152  | I    | 99   | U    | 31   |
-| A    | 222  | E    | 147  | G    | 85   | J    | 27   |
-| B    | 171  | M    | 142  | O    | 72   | K    | 23   |
-| D    | 171  | W    | 110  | Y    | 13   | Q    | 12   |
-| Z    | 3    | X    | 1    |      |      |      |      |
+以下脚本的主要目的是统计当前目录下所有单字母 `.txt` 文件 (`a.txt` 到 `z.txt`) 的行数，并按行数从多到少排序，最后将结果保存到 `word_count_summary.txt` 文件中。
 
-## 如何重现和使用
-
-### 统计与排序 (Shell 命令)
-
-若数据源发生变动，您可以使用以下命令重新生成 `word_count_summary.txt`：
+若数据源发生变动，可以使用以下命令重新生成 `word_count_summary.txt`：
 
 ```
-# 确保所有 txt 文件存在 a.txt 到 z.txt
+# Ensure all text files from a.txt to z.txt exist
 for file in {a..z}.txt; do
+    # count the number of lines in the current file
     count=$(wc -l < "$file")
+    # extract the single letter (a, b, c, ...) from the filename by removing the .txt suffix
     letter=$(basename "$file" .txt)
+    # output the letter and the line count, separated by a space
     echo "$letter $count"
-done | sort -k2,2nr > word_count_summary.txt
+done | \
+# sort the output: 
+# -k2,2nr: sort by the second field (-k2,2), numerically (-n), in reverse order (-r), 
+#   which means the highest count (most lines) comes first.
+# > word_count_summary.txt: redirect the final sorted output to this file
+sort -k2,2nr > word_count_summary.txt
 ```
 
-## 后续分析
-
--   **难度加权分析：** 将当前计数结果与词汇表中的 `*`（必修）和 `**`（选修/拓展）标记结合起来，计算不同难度等级的词汇分布。
+| **命令/结构**                      | **用法说明**                                                 | **示例**                                                     |
+| ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **`{a..z}.txt`**                   | **Bash 扩展/花括号扩展 (Brace Expansion)**：生成一个有序的字符串列表。在这里，它扩展为 `a.txt b.txt ... z.txt`。 | `{1..3}` $\rightarrow$ `1 2 3`                               |
+| **`for file in ...; do ... done`** | **循环结构**：遍历 `in` 后面的列表中的每一个元素，并将其赋值给变量 `file`，然后执行 `do` 和 `done` 之间的命令。 |                                                              |
+| **`wc -l`**                        | **`wc` (Word Count) 命令**：用于统计文件中的字节数、单词数或行数。`-l` 选项 specifically counts the **number of lines** (行数)。 | `wc -l my_file.txt`                                          |
+| **`< "$file"`**                    | **输入重定向**：将文件 `"$file"` 的内容作为 `wc -l` 命令的输入，而不是让 `wc` 直接读取文件并输出文件名。这使得输出只包含行数。 |                                                              |
+| **`$(...)`**                       | **命令替换 (Command Substitution)**：执行圆括号中的命令，并将其标准输出作为字符串返回。在这里，它将行数赋值给变量 `count`。 | `today=$(date)`                                              |
+| **`basename`**                     | **命令**：用于从文件路径中剥离目录信息或指定的后缀。在这里，`basename "$file" .txt` 移除文件名中的 `.txt` 后缀，只留下单个字母。 | `basename /path/to/a.txt .txt` $\rightarrow$ `a`             |
+| **`echo "$letter $count"`**        | **命令**：将变量的值和字符串输出到标准输出。这是管道 (`      | `) 的输入。                                                  |
+| **`                                | `**                                                          | **管道 (Pipe)**：将前一个命令（`echo`）的标准输出，连接并作为后一个命令（`sort`）的标准输入。 |
+| **`sort -k2,2nr`**                 | **`sort` 命令**：用于对输入内容进行排序。                    |                                                              |
+|                                    | * **`-k2,2`**：指定排序键为第 2 字段（即行数），仅对第 2 字段进行排序。 |                                                              |
+|                                    | * **`-n`**：以**数值 (numerical) 方式**进行排序，确保 10 在 2 后面，而不是按字符顺序（'10' 排在 '2' 前面）。 |                                                              |
+|                                    | * **`-r`**：以**逆序 (reverse) 方式**进行排序，使得行数最多的排在最前面。 |                                                              |
+| **`>`**                            | **输出重定向**：将左侧命令（`sort`）的标准输出写入到指定文件（`word_count_summary.txt`）中，**覆盖**原有内容。 |                                                              |
 
 ## 相关资料
 
