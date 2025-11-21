@@ -57,3 +57,8 @@ done | sort -k2,2nr > word_count_summary.txt
 ## 后续分析
 
 -   **难度加权分析：** 将当前计数结果与词汇表中的 `*`（必修）和 `**`（选修/拓展）标记结合起来，计算不同难度等级的词汇分布。
+
+## 相关资料
+
+-   [普通高中课程标准](https://www.ictr.edu.cn/download_center/put.html)
+    -   [普通高中英语课程标准（2017年版2020年修订）](https://www.ictr.edu.cn/Uploads/File/2025/02/07/4.%E6%99%AE%E9%80%9A%E9%AB%98%E4%B8%AD%E8%8B%B1%E8%AF%AD%E8%AF%BE%E7%A8%8B%E6%A0%87%E5%87%86%EF%BC%882017%E5%B9%B4%E7%89%882020%E5%B9%B4%E4%BF%AE%E8%AE%A2%EF%BC%89.20250207211247.pdf)
